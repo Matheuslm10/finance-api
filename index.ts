@@ -1,37 +1,16 @@
-import express, { Application, Request, Response } from "express";
-import helmet from "helmet";
+import express, { Application } from "express";
+
+import exampleRoutes from './src/domains/example/routes';
+import { registerPreRouteMiddlewares, registerPostRouteMiddlewares } from './src/middlewares';
 
 const app: Application = express();
 const port = 8080;
 
-// Middlewares
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(helmet());
+registerPreRouteMiddlewares(app);
 
-// Rota
-app.get(
-    "/",
-    async (req: Request, res: Response): Promise<Response> => {
-        return res.status(200).send({
-            message: "Hello World!",
-        });
-    }
-);
+app.use(exampleRoutes);
 
-app.post(
-    "/",
-    async (req: Request, res: Response): Promise<Response> => {
-        console.log(req);
-        console.log(typeof req.body);
-
-        return res.status(200).send({
-            message: "Hello World!",
-        });
-    }
-);
-
-// Middlewares
+registerPostRouteMiddlewares(app);
 
 try {
     app.listen(port, (): void => {
