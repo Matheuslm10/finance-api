@@ -1,5 +1,7 @@
 import express, { Application } from "express";
 
+console.log(bucketRep);
+
 import exampleRoutes from './src/domains/example/routes';
 import { registerPreRouteMiddlewares, registerPostRouteMiddlewares } from './src/middlewares';
 
