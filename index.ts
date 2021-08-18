@@ -1,8 +1,7 @@
 import express, { Application } from "express";
 
-console.log(bucketRep);
-
 import exampleRoutes from './src/domains/example/routes';
+import bindBucketRoutes from './src/domains/bucket/bindRoutes';
 import { registerPreRouteMiddlewares, registerPostRouteMiddlewares } from './src/middlewares';
 
 const app: Application = express();
@@ -11,6 +10,7 @@ const port = 8080;
 registerPreRouteMiddlewares(app);
 
 app.use(exampleRoutes);
+bindBucketRoutes(app);
 
 registerPostRouteMiddlewares(app);
 

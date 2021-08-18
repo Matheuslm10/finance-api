@@ -1,9 +1,9 @@
 import '../../types';
-export interface IBucket {    
+export interface IBucket {
     deposit: (value: number) => BucketModel,
     withdrawal: (value: number) => BucketModel,
     getBalance: () => number,
-    
+
     getName: () => string,
     setName: (name: string) => BucketModel,
 
@@ -25,66 +25,66 @@ class BucketModel implements IBucket {
     private targetBalance?: number | null;
     private dueDate?: Date | null;
 
-    constructor (bucket: Bucket) {
+    constructor(bucket: Bucket) {
         this.id = bucket.id;
         this.userId = bucket.userId;
         this.balance = bucket.balance;
         this.name = bucket.name;
         this.targetBalance = bucket.targetBalance;
-        this.dueDate = bucket.dueDate;      
+        this.dueDate = bucket.dueDate;
     }
 
-    public deposit (value: number) : BucketModel {
+    public deposit(value: number): BucketModel {
         this.balance += value;
 
         return this;
     }
 
-    public withdrawal (value: number) : BucketModel {
+    public withdrawal(value: number): BucketModel {
         this.balance -= value;
 
         return this;
     }
 
-    public getBalance () : number {
+    public getBalance(): number {
         return this.balance;
     }
 
-    public getName () : string {
+    public getName(): string {
         return this.name;
     }
 
-    public setName (newName: string) : BucketModel {
+    public setName(newName: string): BucketModel {
         this.name = newName;
 
         return this;
     }
 
-    public getId () : string {
+    public getId(): string {
         return this.id;
     }
 
-    public getUserId () : string {
+    public getUserId(): string {
         return this.userId;
     }
 
-    public setTargetBalance (newTargetBalance : number | null) : BucketModel {
+    public setTargetBalance(newTargetBalance: number | null): BucketModel {
         this.targetBalance = newTargetBalance;
 
         return this;
     }
 
-    public getTargetBalance () : number | null {
+    public getTargetBalance(): number | null {
         return this.targetBalance || null;
     }
 
-    public setDueDate (newDueDate: Date | null) : BucketModel {
+    public setDueDate(newDueDate: Date | null): BucketModel {
         this.dueDate = newDueDate;
 
         return this;
     }
 
-    public getDueDate () : Date | null {
+    public getDueDate(): Date | null {
         return this.dueDate || null;
     }
 };
