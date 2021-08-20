@@ -1,16 +1,19 @@
-import express from 'express';
+import express from "express"
 
-import registerRouter from '../../commons/registerRouter';
+import registerRouter from "../../commons/registerRouter"
 
-import getAll from './controllers/getAll';
+import getAllByUserId from "./controllers/getAllByUserId"
+import create from "./controllers/create"
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/', getAll);
+// should the userId be exposed in the route?
+router.get("/:userId", getAllByUserId)
+router.post("/create/:userId", create)
 
 const bindRoutesToApp = registerRouter({
-  domain: '/buckets',
-  router
-});
+  domain: "/buckets",
+  router,
+})
 
-export default bindRoutesToApp;
+export default bindRoutesToApp
