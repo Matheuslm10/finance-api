@@ -48,7 +48,7 @@ export const updateBucket = ({
   return null
 }
 
-export const getAllByUserId = (userId: string) => {
+export const getAllByUserId = (userId: string | string [] | undefined) => {
   const currentBuckets = db.getBuckets()
 
   return currentBuckets.filter((bucket) => bucket.userId === userId)

@@ -8,8 +8,8 @@ import create from "./controllers/create"
 const router = express.Router()
 
 // should the userId be exposed in the route?
-router.get("/:userId", getAllByUserId)
-router.post("/create/:userId", create)
+router.get('/', getAllByUserId)
+router.post('/', create)
 
 const bindRoutesToApp = registerRouter({
   domain: "/buckets",
