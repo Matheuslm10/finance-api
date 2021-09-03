@@ -25,6 +25,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "express-validation": "^3.0.8",
     "helmet": "^4.6.0"
   }
 }
