@@ -1,74 +1,68 @@
 import db from "../../../commons/db"
-// import '../../../types';
-// Não conseguimos importar diretamente, 
-// deixamos aqui para poder seguir. 
-// mas depois precisamos de ajuda XD
-type Bucket = {
-  id: string,
-  userId: string,
-  balance: number,
-  name: string,
-  targetBalance?: number,
-  dueDate?: Date,
-}
-// will it create a bucket without a userId? 
-export const createBucket = (bucket: Bucket): Bucket => {
-  const currentBuckets = db.getBuckets()
+import IBucketRepository from './IBucket';
+import '../../../types';
 
-  currentBuckets.push(bucket)
-
-  db.updateBuckets(currentBuckets)
-  return bucket
-}
-
-export const updateBucket = ({
-  id,
-  bucket: updatedBucket,
-}: {
-  id: string
-  bucket: Bucket
-}): Bucket | null => {
-  let hasUpdatedBucket = false
-  const currentBuckets = db.getBuckets()
-  const newBucketList = currentBuckets.map((bucket) => {
-    if (bucket.id === id) {
-      hasUpdatedBucket = true
+class BucketRepository implements IBucketRepository {
+  createBucket (bucket: Bucket): Bucket {
+    const currentBuckets = db.getBuckets()
+  
+    currentBuckets.push(bucket)
+  
+    db.updateBuckets(currentBuckets)
+    return bucket;
+  }
+  
+  updateBucket ({
+    id,
+    bucket: updatedBucket,
+  }: {
+    id: string
+    bucket: Bucket
+  }): Bucket {
+    let hasUpdatedBucket = false
+    const currentBuckets = db.getBuckets()
+    const newBucketList = currentBuckets.map((bucket) => {
+      if (bucket.id === id) {
+        hasUpdatedBucket = true
+        return updatedBucket
+      }
+  
+      return bucket
+    }, [])
+  
+    db.updateBuckets(newBucketList)
+  
+    if (hasUpdatedBucket) {
       return updatedBucket
     }
-
-    return bucket
-  }, [])
-
-  db.updateBuckets(newBucketList)
-
-  if (hasUpdatedBucket) {
-    return updatedBucket
+  
+    return null
   }
-
-  return null
+  
+  getAllByUserId (userId: string | string [] | undefined): [Bucket] {
+    const currentBuckets = db.getBuckets()
+  
+    return currentBuckets.filter((bucket) => bucket.userId === userId)
+  }
+  
+  deleteById (bucketId: string): boolean {
+    const newBucketList = db
+      .getBuckets()
+      .filter((bucket) => bucket.id !== bucketId)
+  
+    db.updateBuckets(newBucketList)
+    return true
+  }
+  
+  getById ({
+    id,
+    buckets,
+  }: {
+    id: string
+    buckets: Array<Bucket>
+  }) : Bucket {
+    return buckets.find((bucket) => id === bucket.id)
+  }
 }
 
-export const getAllByUserId = (userId: string | string [] | undefined) => {
-  const currentBuckets = db.getBuckets()
-
-  return currentBuckets.filter((bucket) => bucket.userId === userId)
-}
-
-export const deleteById = (bucketId: string): boolean => {
-  const newBucketList = db
-    .getBuckets()
-    .filter((bucket) => bucket.id !== bucketId)
-
-  db.updateBuckets(newBucketList)
-  return true
-}
-
-export const getById = ({
-  id,
-  buckets,
-}: {
-  id: string
-  buckets: Array<Bucket>
-}) => {
-  return buckets.find((bucket) => id === bucket.id)
-}
+export default BucketRepository;

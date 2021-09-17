@@ -1,4 +1,6 @@
 import '../../types';
+import { v4 as uuid } from 'uuid';
+
 export interface IBucket {
     deposit: (value: number) => BucketModel,
     withdrawal: (value: number) => BucketModel,
@@ -15,6 +17,17 @@ export interface IBucket {
 
     setDueDate: (dueDate: Date) => BucketModel,
     getDueDate: () => Date | null,
+
+    getBucket: () => Bucket
+}
+
+type BucketConstructor = {
+    id?: string,
+    userId: string,
+    balance?: number,
+    name: string,
+    targetBalance?: number,
+    dueDate?: Date,
 }
 
 class BucketModel implements IBucket {
@@ -25,13 +38,14 @@ class BucketModel implements IBucket {
     private targetBalance?: number | null;
     private dueDate?: Date | null;
 
-    constructor(bucket: Bucket) {
-        this.id = bucket.id;
+    constructor(bucket: BucketConstructor) {
+        this.id = bucket.id || uuid();
+        this.balance = bucket.balance || 0;
+        this.targetBalance = bucket.targetBalance || null;
+        this.dueDate = bucket.dueDate || null;
+
         this.userId = bucket.userId;
-        this.balance = bucket.balance;
         this.name = bucket.name;
-        this.targetBalance = bucket.targetBalance;
-        this.dueDate = bucket.dueDate;
     }
 
     public deposit(value: number): BucketModel {
