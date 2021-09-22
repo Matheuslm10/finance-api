@@ -1,22 +1,33 @@
 import BucketModel from "../model";
-import IBucketRepository from "../repositories/IBucket"
+import IBucketRepository from "../repositories/IBucket";
 
 interface IBucketPayload {
-    userId: string,
-    balance?: number,
-    name: string,
-    targetBalance?: number,
-    dueDate?: Date,
+  userId: string;
+  balance?: number;
+  name: string;
+  targetBalance?: number;
+  dueDate?: Date;
 }
 
-export default function createUseCase (
-    bucketPayload : IBucketPayload,
-    bucketRepository : IBucketRepository) => {
-    try {
-        const bucket = new BucketModel(bucketPayload);
+export function createUseCase2(bucketPayload : IBucketPayload, bucketRepository : IBucketRepository) : Bucket {
+  try {
+    const bucket = new BucketModel(bucketPayload);
 
-        bucketRepository.createBucket(bucket)
-    } catch (exception) {
+    return bucketRepository.createBucket(bucket);
+  } catch (exception) {
+    return bucket;
+  }
+}
 
-    }
+export default function createUseCase(
+  fn: (
+    bucketPayload: IBucketPayload,
+    bucketRepository: IBucketRepository
+  ) => Bucket
+) {
+  try {
+    const bucket = new BucketModel(bucketPayload);
+
+    bucketRepository.createBucket(bucket);
+  } catch (exception) {}
 }

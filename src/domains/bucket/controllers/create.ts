@@ -6,7 +6,7 @@ import createUseCase from "../use-cases/create"
 export default async (req: Request, res: Response): Promise<Response> => {
   const newBucket = req?.body
 
-  createUseCase(newBucket, bucketRepository)
+  createUseCase(newBucket, new bucketRepository)
   
   return res.status(201).send(newBucket)
 }

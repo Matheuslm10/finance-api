@@ -18,7 +18,7 @@ export interface IBucket {
     setDueDate: (dueDate: Date) => BucketModel,
     getDueDate: () => Date | null,
 
-    getBucket: () => Bucket
+    getBucket: () => BucketModel
 }
 
 type BucketConstructor = {
@@ -100,6 +100,10 @@ class BucketModel implements IBucket {
 
     public getDueDate(): Date | null {
         return this.dueDate || null;
+    }
+
+    public getBucket(): BucketModel {
+        return this;
     }
 };
 
