@@ -1,12 +1,12 @@
-import { Request, Response } from "express"
+import { Request, Response } from "express";
 // We might use the model.
-import bucketRepository from "../repositories/bucket"
-import createUseCase from "../use-cases/create"
+import BucketRepository from "../repositories/bucket";
+import createUseCase from "../use-cases/create";
 
 export default async (req: Request, res: Response): Promise<Response> => {
-  const newBucket = req?.body
+  const newBucket = req?.body;
 
-  createUseCase(newBucket, new bucketRepository)
-  
-  return res.status(201).send(newBucket)
-}
+  createUseCase(newBucket, new BucketRepository());
+
+  return res.status(201).send(newBucket);
+};

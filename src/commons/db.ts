@@ -1,32 +1,26 @@
-interface IBucketModel {
-    id: string,
-    userId: string,
-    balance: number,
-    name: string,
-    dueDate?: Date,
-}
+import BucketModel from "../domains/bucket/model";
 
 interface IDB {
-    buckets: Array<IBucketModel>
-};
+  buckets: Array<BucketModel>;
+}
 
 class DB {
-    private db: IDB;
+  private db: IDB;
 
-    constructor () {
-        this.db = {
-            buckets: []
-        }
-    }
+  constructor() {
+    this.db = {
+      buckets: [],
+    };
+  }
 
-    public getBuckets ():Array<IBucketModel> {
-        return [...this.db.buckets];
-    }
+  public getBuckets(): Array<BucketModel> {
+    return [...this.db.buckets];
+  }
 
-    public updateBuckets (newBuckets: Array<IBucketModel>): Array<IBucketModel> {
-       this.db.buckets = newBuckets;
-       return this.db.buckets;
-    }
+  public updateBuckets(newBuckets: Array<BucketModel>): Array<BucketModel> {
+    this.db.buckets = newBuckets;
+    return this.db.buckets;
+  }
 }
 
 export default new DB();

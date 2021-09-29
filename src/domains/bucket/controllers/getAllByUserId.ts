@@ -1,9 +1,10 @@
-import { Request, Response } from "express"
-import { getAllByUserId } from "../repositories/bucket"
+import { Request, Response } from "express";
+import BucketRepository from "../repositories/bucket";
 
 export default async (req: Request, res: Response): Promise<Response> => {
-  const { 'userid': userId } = req.headers;
+  const { userid: userId } = req.headers;
+  const bucketRepository = new BucketRepository();
 
-  const buckets = getAllByUserId(userId)
-  return res.status(200).send(buckets)
-}
+  const buckets = bucketRepository.getAllByUserId(userId);
+  return res.status(200).send(buckets);
+};

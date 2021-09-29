@@ -1,7 +1,15 @@
+import BucketModel from "../model";
+
 export default interface IBucketRepository {
-    createBucket: (bucket: Bucket) => Bucket    
-    updateBucket: (options: {id: string, bucket: Bucket}) => Bucket
-    getAllByUserId: (userId: string | string [] | undefined) => [Bucket]
-    deleteById: (bucketId: string) => boolean
-    getById: (options: {id: string, buckets: Array<Bucket>}) => Bucket 
+  createBucket: (bucket: BucketModel) => BucketModel;
+  updateBucket: (options: {
+    id: string;
+    bucket: BucketModel;
+  }) => BucketModel | null;
+  getAllByUserId: (userId: string | string[] | undefined) => BucketModel[];
+  deleteById: (bucketId: string) => boolean;
+  getById: (options: {
+    id: string;
+    buckets: Array<BucketModel>;
+  }) => BucketModel | undefined;
 }

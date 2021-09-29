@@ -9,25 +9,11 @@ interface IBucketPayload {
   dueDate?: Date;
 }
 
-export function createUseCase2(bucketPayload : IBucketPayload, bucketRepository : IBucketRepository) : Bucket {
-  try {
-    const bucket = new BucketModel(bucketPayload);
-
-    return bucketRepository.createBucket(bucket);
-  } catch (exception) {
-    return bucket;
-  }
-}
-
 export default function createUseCase(
-  fn: (
-    bucketPayload: IBucketPayload,
-    bucketRepository: IBucketRepository
-  ) => Bucket
-) {
-  try {
-    const bucket = new BucketModel(bucketPayload);
+  bucketPayload: IBucketPayload,
+  bucketRepository: IBucketRepository
+): BucketModel {
+  const bucket = new BucketModel(bucketPayload);
 
-    bucketRepository.createBucket(bucket);
-  } catch (exception) {}
+  return bucketRepository.createBucket(bucket);
 }
