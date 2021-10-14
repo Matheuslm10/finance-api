@@ -19,3 +19,8 @@
     - currying
     - higher order functions
     - clojure
+
+## Todo 16/09
+
+- Compilar tipos automaticamente
+- Finalizar endpoint de criação de bucket

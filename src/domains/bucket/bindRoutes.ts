@@ -1,16 +1,20 @@
-import express from 'express';
+import express from "express"
 
-import registerRouter from '../../commons/registerRouter';
+import registerRouter from "../../commons/registerRouter"
 
-import getAll from './controllers/getAll';
+import getAllByUserId from "./controllers/getAllByUserId"
+import create from "./controllers/create"
+import createValidator from "./validators/createValidator"
 
-const router = express.Router();
+const router = express.Router()
 
-router.get('/', getAll);
+// should the userId be exposed in the route?
+router.get('/', getAllByUserId)
+router.post('/', createValidator, create)
 
 const bindRoutesToApp = registerRouter({
-  domain: '/buckets',
-  router
-});
+  domain: "/buckets",
+  router,
+})
 
-export default bindRoutesToApp;
+export default bindRoutesToApp
